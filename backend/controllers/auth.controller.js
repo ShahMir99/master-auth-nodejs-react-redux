@@ -14,7 +14,7 @@ import {
   welcomeBackEmail,
   welcomeEmail,
   forgotPasswordEmail,
-  resetSuccessEmail
+  resetSuccessEmail,
 } from "../nodemailer/emailService.js";
 
 const signUp = async (req, res) => {
@@ -228,7 +228,7 @@ const resetPassword = async (req, res) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    
+
     if (!token) {
       return ErrorResponse(res, 400, "token is required");
     }
@@ -236,18 +236,18 @@ const resetPassword = async (req, res) => {
       return ErrorResponse(res, 400, "Password is required");
     }
 
-    const user = await User.findOne({ 
-      resetPasswordToken : token,
-      resetPasswordTokenExpires : {$gt : Date.now()}
-     });
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordTokenExpires: { $gt: Date.now() },
+    });
 
     if (!user) {
       return ErrorResponse(res, 400, "Invalid or expire token.");
     }
 
-    const hashPassword = await bcrypt.hash(password , 10)
+    const hashPassword = await bcrypt.hash(password, 10);
 
-    user.password = hashPassword
+    user.password = hashPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordTokenExpires = undefined;
 
@@ -260,9 +260,9 @@ const resetPassword = async (req, res) => {
 
     return SuccessResponse(res, 200, "Password reset successfully");
   } catch (error) {
-    logger.error(error);
     await session.abortTransaction();
     session.endSession();
+    logger.error(error);
     return ErrorResponse(res, 500, "Password reset : Internal server error");
   }
 };
@@ -273,5 +273,5 @@ export default {
   emailVerification,
   forgotPassword,
   resetPassword,
-  logOut,
+  logOut
 };

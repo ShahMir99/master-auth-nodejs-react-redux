@@ -15,6 +15,7 @@ app.use(cookieParser())
 app.use(cors())
 
 app.use("/api/v1/auth",Routes.AuthRoutes)
+app.use("/api/v1/user",Routes.UserRoutes)
 app.use("/api/v1/post",Routes.PostRoutes)
 
 app.get('/', async (req, res) => {

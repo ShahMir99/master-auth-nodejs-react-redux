@@ -36,15 +36,9 @@ const userSchema = new Schema({
         type: Boolean,
         default: false,
     },
-    resetPasswordToken : {
-        type : String,
-        unique : true
-    },
+    resetPasswordToken : String,
     resetPasswordTokenExpires : Date,
-    emailVerificationToken : {
-        type : String,
-        unique : true
-    },
+    emailVerificationToken : String,
     emailVerificationTokenExpires : Date,
 
 },{
