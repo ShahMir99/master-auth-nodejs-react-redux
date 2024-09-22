@@ -12,7 +12,7 @@ const app = express()
 
 app.use(express.json({limit : "5MB"}))
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({origin : Config.clientUrl, credentials : true}))
 
 app.use("/api/v1/auth",Routes.AuthRoutes)
 app.use("/api/v1/user",Routes.UserRoutes)

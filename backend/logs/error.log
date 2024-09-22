@@ -2,3 +2,4 @@
 9/21/2024, 8:22:29 PM [[31merror[39m]: E11000 duplicate key error collection: OnDay.users index: resetPasswordToken_1 dup key: { resetPasswordToken: null }
 9/21/2024, 8:22:50 PM [[31merror[39m]: E11000 duplicate key error collection: OnDay.users index: resetPasswordToken_1 dup key: { resetPasswordToken: null }
 9/21/2024, 8:23:43 PM [[31merror[39m]: E11000 duplicate key error collection: OnDay.users index: resetPasswordToken_1 dup key: { resetPasswordToken: null }
+9/22/2024, 12:29:54 PM [[31merror[39m]: No recipients defined

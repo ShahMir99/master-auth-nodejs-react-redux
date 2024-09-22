@@ -267,11 +267,24 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const checkAuth = async (req, res) => {
+  res.set("Cache-Control", "no-store");
+  try {
+    const user = await User.findById(req.userId).select("-password");
+
+    if (!user) {
+      return ErrorResponse(res, 400, "User not found");
+    }
+    return SuccessResponse(res, 200, "", user);
+  } catch (error) {}
+};
+
 export default {
   signUp,
   login,
   emailVerification,
   forgotPassword,
   resetPassword,
-  logOut
+  logOut,
+  checkAuth
 };
