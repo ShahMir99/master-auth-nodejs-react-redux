@@ -26,7 +26,7 @@ function App() {
   }
 
   return (
-    <div className="w-full h-screen bg-gradient-to-t from-[#accbee] to-[#e6f0ff]">
+    <div className="w-full h-screen bg-gradient-to-t from-[#a4c5eb] to-[#e6f0ff]">
       <Routes>
 
         <Route
