@@ -199,7 +199,7 @@ const forgotPassword = async (req, res) => {
       return ErrorResponse(res, 400, "User not found.");
     }
 
-    const resetToken = crypto.randomBytes(20).toString("hex");
+    const resetToken =  Math.floor(100000 + Math.random() * 900000);
     const resetTokenExpiresAt = Date.now() + 10 * 60 * 1000;
 
     user.resetPasswordToken = resetToken;
@@ -207,8 +207,7 @@ const forgotPassword = async (req, res) => {
 
     await user.save({ session });
 
-    const url = `${Config.clientUrl}/reset-password/${resetToken}`;
-    await forgotPasswordEmail(user.email, url);
+    await forgotPasswordEmail(user.email, resetToken);
 
     await session.commitTransaction();
     session.endSession();

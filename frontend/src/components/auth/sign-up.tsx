@@ -1,4 +1,4 @@
-import { clearError, SignUpUser } from "@/store/slices/authSlice";
+import { clearError, SignUpUser } from "@/store/slices/auth/authSlice"
 import { AppDispatch, RootState } from "@/store/Store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ export type formDataType = {
 };
 
 const SignUp = () => {
-  const { isLoading, submitError, message } = useSelector(
+  const { isLoading, submitError } = useSelector(
     (state: RootState) => state.authSlice
   );
   const dispatch = useDispatch<AppDispatch>();
@@ -93,11 +93,6 @@ const SignUp = () => {
         </CardContent>
         <CardFooter>
           <div className="flex flex-col gap-3">
-            <div>
-              {message && (
-                <p className="text-base text-emerald-600">{message}</p>
-              )}
-            </div>
             <Button variant="custom" type="submit" disabled={isLoading}>
               {isLoading ? "Loading..." : "Create new"}
             </Button>

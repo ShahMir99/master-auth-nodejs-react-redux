@@ -54,12 +54,12 @@ export const welcomeBackEmail = async (email, name) => {
   }
 };
 
-export const forgotPasswordEmail = async (email, url) => {
+export const forgotPasswordEmail = async (email, token) => {
   const mailOptions = {
     from: senderEmail,
     to: email,
     subject: "Forgot password",
-    html: RESET_PASSWORD_TEMPLATE.replace("{resetURL}",url),
+    html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", token),
   };
 
   try {

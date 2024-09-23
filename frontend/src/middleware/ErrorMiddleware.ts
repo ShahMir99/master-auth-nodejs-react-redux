@@ -1,4 +1,4 @@
-import { clearError } from "@/store/slices/authSlice";
+import { clearError } from "@/store/slices/auth/authSlice";
 import { Middleware } from "@reduxjs/toolkit";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
 import { toast } from "react-toastify"; // Adjust the path to your slice

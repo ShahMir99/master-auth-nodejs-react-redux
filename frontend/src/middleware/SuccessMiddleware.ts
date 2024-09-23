@@ -1,6 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { clearMessage } from "@/store/slices/authSlice"; // Adjust the path as needed
+import { clearMessage } from "@/store/slices/auth/authSlice"; // Adjust the path as needed
 
 export const SuccessMiddleware: Middleware = (storeAPI) => (next) => (action: any) => {
   // Show success message for all fulfilled actions only if there's a message

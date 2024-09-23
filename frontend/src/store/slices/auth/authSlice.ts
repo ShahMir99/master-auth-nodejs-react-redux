@@ -6,7 +6,7 @@ interface authState {
   globalLoading: boolean;
   isLoading: boolean;
   isAuthenticated: boolean;
-  user: { [key: string]: any };
+  user: { [key: string]: any } | null;
   message: string | null;
   submitError: string | null;
 }
@@ -62,6 +62,22 @@ export const SignUpUser = createAsyncThunk(
       return data;
     } catch (error: any) {
       console.error("🚀 ~ Getting Error in sign up thunk ~ error:", error);
+      if (error.response && error.response.data.error) {
+        return rejectWithValue(error.response.data.error);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const logOutUser = createAsyncThunk(
+  "auth/logOutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const {data} = await Axios.post("/api/v1/auth/logout");
+      return data
+    } catch (error: any) {
+      console.error("🚀 ~ Getting Error in Check Auth thunk ~ error:", error);
       if (error.response && error.response.data.error) {
         return rejectWithValue(error.response.data.error);
       }
@@ -134,6 +150,26 @@ const AuthSlice = createSlice({
         state.submitError = null
       })
       .addCase(SignUpUser.rejected, (state, {payload}) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.message = null;
+        state.submitError = payload as string
+
+      })
+
+      builder.addCase(logOutUser.pending, (state) => {
+        state.isLoading = true;
+        state.submitError = null,
+        state.message = null;
+      })
+      .addCase(logOutUser.fulfilled, (state, {payload}) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.message = payload.message;
+        state.user = null
+        state.submitError = null
+      })
+      .addCase(logOutUser.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.message = null;
