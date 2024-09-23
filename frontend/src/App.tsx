@@ -22,11 +22,11 @@ function App() {
   }, []);
 
   if (globalLoading) {
-    return <Loading />;
+    return  <Loading />;
   }
 
   return (
-    <div className="w-full h-screen bg-gradient-to-t from-[#accbee] to-[#e7f0fd] ">
+    <div className="w-full h-screen bg-gradient-to-t from-[#accbee] to-[#e6f0ff]">
       <Routes>
 
         <Route
