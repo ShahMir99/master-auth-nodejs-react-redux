@@ -2,15 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root,
 html,
 body {
   height: 100%;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 @layer base {
   :root {
     --radius: 0.5rem;
   }
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* For Firefox */
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.marquee_div{
+  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
 }

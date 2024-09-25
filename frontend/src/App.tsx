@@ -26,17 +26,12 @@ function App() {
   }
 
   return (
-    <div className="w-full h-screen bg-gradient-to-t from-[#aecdf1] to-[#dbe7f8]">
+    <div className="w-full h-screen bg-gradient-to-t from-[#aecdf1] to-[#dbe7f8] font-poppins">
       <Routes>
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<Home />}/>
+        </Route>
         
         <Route
           path="/Auth"

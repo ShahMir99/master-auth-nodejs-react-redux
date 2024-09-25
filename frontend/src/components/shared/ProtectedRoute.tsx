@@ -1,9 +1,10 @@
 import { RootState } from "@/store/Store";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import Navbar from "./Navbar";
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const ProtectedRoute = () => {
   const { isAuthenticated } = useSelector(
     (state: RootState) => state.authSlice
   );
@@ -12,7 +13,12 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/auth" replace />;
   }
 
-  return children;
+  return (
+    <div className="h-full w-full relative bg-white">
+      <Navbar />
+      <Outlet />
+    </div>
+  );
 };
 
 export default ProtectedRoute;

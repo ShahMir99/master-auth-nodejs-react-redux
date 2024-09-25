@@ -12,7 +12,7 @@ const LogoutButton = () => {
     }
 
   return (
-    <Button onClick={() => handleLogout()}>{isLoading ? "Loading..." : "Logout"}</Button>
+    <Button variant="custom" onClick={() => handleLogout()}>{isLoading ? "Loading..." : "Sign out"}</Button>
   )
 }
 

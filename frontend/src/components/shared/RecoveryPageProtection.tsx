@@ -16,7 +16,7 @@ const RecoveryPageProtection = ({
   const isValid = searchParams.get("isvalid");
 
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   if (
