@@ -6,7 +6,6 @@ import crypto from "crypto";
 //local imports
 import { SuccessResponse, ErrorResponse } from "../utils/responseHandler.js";
 import { User } from "../models/index.js";
-import logger from "../utils/logger.js";
 import { generateToken } from "../utils/generateToken.js";
 import { Config } from "../configs/index.js";
 import {

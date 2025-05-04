@@ -29,6 +29,8 @@ app.use(cookieParser())
 
 app.use(cors({origin : Config.clientUrl, credentials : true}))
 
+console.log("Config.clientUrl", Config.clientUrl)
+
 app.use("/api/v1/auth",Routes.AuthRoutes)
 app.use("/api/v1/user",Routes.UserRoutes)
 app.use("/api/v1/post",Routes.PostRoutes)

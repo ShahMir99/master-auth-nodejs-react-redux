@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import logger from "../utils/logger.js";
 import { ErrorResponse } from "../utils/responseHandler.js";
 import { Config } from "../configs/index.js";
 
