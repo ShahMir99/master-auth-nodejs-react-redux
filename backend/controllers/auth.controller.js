@@ -18,10 +18,8 @@ import {
 } from "../nodemailer/emailService.js";
 
 const signUp = async (req, res) => {
-  const session = await mongoose.startSession();
   const { name, email, password } = req.body;
   try {
-    session.startTransaction();
     if (!name) {
       return ErrorResponse(res, 400, "Name is required");
     }
@@ -50,12 +48,10 @@ const signUp = async (req, res) => {
       emailVerificationTokenExpires: Date.now() + 10 * 60 * 1000,
     });
 
-    await user.save({ session });
+    await user.save();
     generateToken(res, user);
 
     await verifyEmail(user.email, VerificationCode);
-    await session.commitTransaction();
-    session.endSession();
 
     const userObject = user.toObject();
     delete userObject.password;
@@ -64,18 +60,13 @@ const signUp = async (req, res) => {
     return SuccessResponse(res, 200, "User register successfully", userObject);
   } catch (error) {
     logger.error(error);
-    await session.abortTransaction();
-    session.endSession();
     return ErrorResponse(res, 500, error.message);
   }
 };
 
 const emailVerification = async (req, res) => {
   const { code } = req.body;
-  const session = await mongoose.startSession();
   try {
-    session.startTransaction();
-
     if (!code) {
       return ErrorResponse(res, 400, "verification code is required");
     }
@@ -93,29 +84,23 @@ const emailVerification = async (req, res) => {
     user.emailVerificationToken = undefined;
     user.emailVerificationTokenExpires = undefined;
 
-    await user.save({ session });
+    await user.save();
     await welcomeEmail(user.email, user.name);
 
-    await session.commitTransaction();
-    session.endSession();
     const userObject = user.toObject();
     delete userObject.password;
 
     return SuccessResponse(res, 200, "User verified successfully", userObject);
   } catch (error) {
     logger.error(error);
-    await session.abortTransaction();
-    session.endSession();
+
     return ErrorResponse(res, 500, error.message);
   }
 };
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const session = await mongoose.startSession();
   try {
-    session.startTransaction();
-
     if (!email) {
       return ErrorResponse(res, 400, "Email is required");
     }
@@ -149,16 +134,13 @@ const login = async (req, res) => {
       lastDate.getMonth();
 
     user.lastLogin = Date.now();
-    await user.save({ session });
+    await user.save();
 
     generateToken(res, user);
 
     if (diffInMonths >= 1) {
       await welcomeBackEmail(user.email, user.name);
     }
-
-    await session.commitTransaction();
-    session.endSession();
 
     const userObject = user.toObject();
     delete userObject.password;
@@ -167,8 +149,7 @@ const login = async (req, res) => {
     return SuccessResponse(res, 200, "User logged in successfully", userObject);
   } catch (error) {
     logger.error(error);
-    await session.abortTransaction();
-    session.endSession();
+
     return ErrorResponse(res, 500, error.message);
   }
 };
@@ -185,10 +166,7 @@ const logOut = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-  const session = await mongoose.startSession();
   try {
-    session.startTransaction();
-
     if (!email) {
       return ErrorResponse(res, 400, "Email is required");
     }
@@ -199,24 +177,20 @@ const forgotPassword = async (req, res) => {
       return ErrorResponse(res, 400, "User not found.");
     }
 
-    const resetToken =  Math.floor(100000 + Math.random() * 900000);
+    const resetToken = Math.floor(100000 + Math.random() * 900000);
     const resetTokenExpiresAt = Date.now() + 10 * 60 * 1000;
 
     user.resetPasswordToken = resetToken;
     user.resetPasswordTokenExpires = resetTokenExpiresAt;
 
-    await user.save({ session });
+    await user.save();
 
     await forgotPasswordEmail(user.email, resetToken);
-
-    await session.commitTransaction();
-    session.endSession();
 
     return SuccessResponse(res, 200, "Reset link sent successfully");
   } catch (error) {
     logger.error(error);
-    await session.abortTransaction();
-    session.endSession();
+
     return ErrorResponse(res, 500, "Internal server error");
   }
 };
@@ -224,10 +198,7 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
-  const session = await mongoose.startSession();
   try {
-    session.startTransaction();
-
     if (!token) {
       return ErrorResponse(res, 400, "token is required");
     }
@@ -250,17 +221,12 @@ const resetPassword = async (req, res) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordTokenExpires = undefined;
 
-    await user.save({ session });
+    await user.save();
 
     await resetSuccessEmail(user.email);
 
-    await session.commitTransaction();
-    session.endSession();
-
     return SuccessResponse(res, 200, "Password reset successfully");
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
     logger.error(error);
     return ErrorResponse(res, 500, "Password reset : Internal server error");
   }
@@ -285,5 +251,5 @@ export default {
   forgotPassword,
   resetPassword,
   logOut,
-  checkAuth
+  checkAuth,
 };

@@ -1,10 +1,9 @@
-import React from "react";
 import Marquee from "react-fast-marquee";
 
 const MarqueeSection = () => {
   return (
-      <div className="w-full py-16">
-        <h1 className="text-3xl text-center font-semibold text-neutral-900">
+      <div className="mx-auto max-w-[1400px] py-16">
+        <h1 className="text-4xl text-center font-semibold text-neutral-900">
           Trusted by well known companies
         </h1>
         <div className="max-w-[98%] mx-auto h-[80px] my-6 flex items-center marquee_div">
@@ -26,7 +25,6 @@ const MarqueeSection = () => {
             </ul>
           </Marquee>
         </div>
-        <hr className="h-[0.5px] bg-neutral-300 border-0" />
       </div>
   );
 };

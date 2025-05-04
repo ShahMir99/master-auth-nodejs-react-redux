@@ -3,3 +3,6 @@
 9/21/2024, 8:22:50 PM [[31merror[39m]: E11000 duplicate key error collection: OnDay.users index: resetPasswordToken_1 dup key: { resetPasswordToken: null }
 9/21/2024, 8:23:43 PM [[31merror[39m]: E11000 duplicate key error collection: OnDay.users index: resetPasswordToken_1 dup key: { resetPasswordToken: null }
 9/22/2024, 12:29:54 PM [[31merror[39m]: No recipients defined
+11/5/2024, 6:27:46 PM [[31merror[39m]: Transaction numbers are only allowed on a replica set member or mongos
+5/4/2025, 10:36:03 AM [[31merror[39m]: Transaction numbers are only allowed on a replica set member or mongos
+5/4/2025, 10:39:03 AM [[31merror[39m]: session is not defined

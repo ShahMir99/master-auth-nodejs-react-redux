@@ -1,4 +1,5 @@
 import ColorBackground from "@/components/ColorBackground";
+import GradientSection from "@/components/GradientSection";
 import HorizontalSlider from "@/components/HorizontalSlider";
 import MarqueeSection from "@/components/MarqueeSection";
 import PricingSection from "@/components/PricingSection";
@@ -19,21 +20,23 @@ const Home = () => {
           >
             <ColorBackground />
             <div className="z-20 flex flex-col space-y-6">
-              <h1 className="text-5xl font-semibold text-center leading-[70px]">
+              <h1 className="text-6xl font-semibold text-center leading-[70px]">
                 <span>What will you
                  {" "}<span className="bg-clip-text text-transparent bg-custom-gradient">design</span> {" "}today?
                 </span>
               </h1>
-              <p className="text-center text-xl text-neutral-700 font-light">
+              <p className="text-center text-[24px] text-neutral-600 font-light">
                 Canva makes it easy to create and share professional designs.
               </p>
-              <Button variant="custom" className="mx-auto">Start Designing</Button>
+              <Button variant="custom" className="mx-auto py-6 px-8">Start Designing</Button>
             </div>
           </motion.div>
         </div>
         <HorizontalSlider />
         <PricingSection />
         <MarqueeSection />
+        <GradientSection />
+
       </section>
     </main>
   );

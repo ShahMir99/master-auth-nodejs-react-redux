@@ -166,7 +166,7 @@ const HorizontalSlider = () => {
             <motion.div
               key={item.title}
               style={{ backgroundImage: item.gradient }}
-              className="relative h-60 min-w-[180px] px-5 rounded-md transition-all duration-200 ease-out snap-start overflow-hidden cursor-pointer" // Set overflow-hidden here
+              className="relative h-[270px] min-w-[200px] rounded-xl shadow-md transition-all duration-200 ease-out snap-start overflow-hidden cursor-pointer" // Set overflow-hidden here
               whileHover={{ scale: 1.1 }} // Scale effect on hover
             >
               <div className="flex items-center justify-center pt-8 z-10">
@@ -177,7 +177,7 @@ const HorizontalSlider = () => {
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className="w-full h-full object-cover rounded-md -mt-2"
+                className="h-full w-full object-cover rounded-md -mt-2"
               />
             </motion.div>
           ))}
