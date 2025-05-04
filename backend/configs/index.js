@@ -5,7 +5,7 @@ export const Config = {
   jwtSecret : process.env.JWT_SECRET,
   databaseUrl : process.env.DATABASE_URI,
   databaseName : process.env.DATABASE_NAME,
-  appPort : process.env.PORT || 5000,
+  appPort : process.env.DATABASE_PORT || 5000,
 
   clientUrl : process.env.CLIENT_URL,
 

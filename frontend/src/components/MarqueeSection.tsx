@@ -13,7 +13,7 @@ const MarqueeSection = () => {
                 ...Array(6)
                   .fill(0)
                   .map((_, i) => (
-                    <li className="px-4">
+                    <li key={i} className="px-4">
                       <img
                         src={`/images/brands/brandItem${i + 1}.png`}
                         alt="brand-names"
