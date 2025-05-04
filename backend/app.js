@@ -14,6 +14,20 @@ app.use(express.json({limit : "5MB"}))
 app.use(cookieParser())
 
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',');
+
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
+
 // const allowedOrigins = ['http://localhost:5173','http://mmc-madina.com', 'http://www.mmc-madina.com'];
 
 // app.use(cors({
@@ -27,9 +41,9 @@ app.use(cookieParser())
 //   credentials: true,
 // }));
 
-app.use(cors({origin : Config.clientUrl, credentials : true}))
+// app.use(cors({origin : Config.clientUrl, credentials : true}))
 
-console.log("Config.clientUrl", Config.clientUrl)
+console.log("Allowed origins", process.env.ALLOWED_ORIGINS)
 
 app.use("/api/v1/auth",Routes.AuthRoutes)
 app.use("/api/v1/user",Routes.UserRoutes)
